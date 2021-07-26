@@ -1,4 +1,7 @@
 import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 """ Loading in and preparing mnist dataset, then converting samples from integers to floating point numbers """
 mnist = tf.keras.datasets.mnist
