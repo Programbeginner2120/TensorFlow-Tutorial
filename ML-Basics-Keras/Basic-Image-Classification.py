@@ -73,6 +73,7 @@ mapping_predicted = np.argmax(predictions[0])  # returns mapping number of predi
 # print(mapping_predicted)
 # print(mapping_predicted == test_labels[0])  # prints if it is correct or not
 
+
 """plots image of given testing example"""
 def plot_image(i, predictions_array, true_label, img):
     true_label, img = true_label[i], img[i]
@@ -90,6 +91,7 @@ def plot_image(i, predictions_array, true_label, img):
                                           class_names[true_label],
                                           color=color))
 
+
 """Plots bar graph representing value array for test image"""
 def plot_value_array(i, predictions_array, true_label):
     true_label = true_label[i]
@@ -105,24 +107,53 @@ def plot_value_array(i, predictions_array, true_label):
 
 
 """Plotting for first test image"""
-i = 0
-plt.figure(figsize=(6,3))
-plt.subplot(1,2,1)
-plot_image(i, predictions[i], test_labels, test_images)
-plt.subplot(1,2,2)
-plot_value_array(i, predictions[i], test_labels)
+# i = 0
+# plt.figure(figsize=(6,3))
+# plt.subplot(1,2,1)
+# plot_image(i, predictions[i], test_labels, test_images)
+# plt.subplot(1,2,2)
+# plot_value_array(i, predictions[i], test_labels)
+# plt.show()
+#
+# """Plotting for thirteenth test image"""
+# i = 12
+# plt.figure(figsize=(6,3))
+# plt.subplot(1,2,1)
+# plot_image(i, predictions[i], test_labels, test_images)
+# plt.subplot(1,2,2)
+# plot_value_array(i, predictions[i],  test_labels)
+# plt.show()
+
+"""Plotting grid of the first 15 test images and their predictions"""
+# num_rows = 5
+# num_columns = 3
+# num_images = num_rows * num_columns
+# plt.figure(figsize=(2*2*num_columns, 2 * num_rows))
+# for i in range(num_images):
+#     plt.subplot(num_rows, 2*num_columns, 2*i + 1)
+#     plot_image(i, predictions[i], test_labels, test_images)
+#     plt.subplot(num_rows, 2*num_columns, 2*i + 2)
+#     plot_value_array(i, predictions[i], test_labels)
+# plt.tight_layout()
+# plt.show()
+
+img = test_images[1]  # cannot use tf.keras to predict one single image, needs a tensor
+# print(img.shape)
+img = (np.expand_dims(img, 0))  # adding 3rd dimension
+# print(img.shape)
+
+"""Predict the correct label for this image"""
+predictions_single = probability_model.predict(img)
+# print(predictions_single)
+plot_value_array(1, predictions_single[0], test_labels)
+_ = plt.xticks(range(10), class_names, rotation=45)
 plt.show()
 
-"""Plotting for thirteenth test image"""
-i = 12
-plt.figure(figsize=(6,3))
-plt.subplot(1,2,1)
-plot_image(i, predictions[i], test_labels, test_images)
-plt.subplot(1,2,2)
-plot_value_array(i, predictions[i],  test_labels)
-plt.show()
+"""tf.keras.Model.predict returns a list of lists—one list for each image in the batch of data. Grab the predictions for
+ our (only) image in the batch:"""
+prediction = np.argmax(predictions_single[0])
+print(prediction)
 
-# TODO: FINISH THIS PART OF TUTORIAL
 
 
 
